@@ -1,0 +1,85 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<style>
+ .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
+
+
+
+
+
+<div class="list row">
+  <div class="input-group mb-3">
+    <input
+    type="text"
+    #val
+    class="form-control"
+    placeholder="Search by title"
+    [(ngModel)]="title" (keyup)="searchTitle(val.value)" />
+  </div>
+  <br/>
+ 
+
+  <table class="customers table">
+    <thead>
+    <th>
+      Id
+    </th>
+    <th>
+      Book Informations
+    </th>
+    <th>
+      LastModified
+    </th>
+    </thead>
+    <tbody>
+    <tr *ngFor="
+    let post of POST  | paginate : { itemsPerPage: pageSize, currentPage: page, totalItems: count };
+    let i = index">
+    <td>{{post.bookId}}</td>
+    <td style="max-width:360px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis" >{{post.bookInfo}}</td>
+    <td>{{post.lastModified}}</td>
+    </tr>
+    
+    </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr>
+          <td> <select (change)="handlePageSizeChange($event)">
+            <option *ngFor="let size of pageSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select></td>
+          <td> <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            [responsive]="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls></td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>
